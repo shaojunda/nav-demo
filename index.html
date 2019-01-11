@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Nav Demo</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header></header>
+  <main>
+    <div class="wrapper" id="main"></div>
+  </main>
+  <footer></footer>
+  <script>
+    var key = [
+      ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+      ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+      ['z', 'x', 'c', 'v', 'b', 'n', 'm']
+    ]
+
+    var hash = {
+      'q': 'http://qq.com',
+      'w': 'http://weibo.com',
+      'e': 'http://ele.me',
+      'r': 'http://renren.com',
+      't': 'http://tianya.com',
+      'y': 'http://youtube.com',
+      'u': 'http://uc.com',
+      'i': 'http://iqiyi.com',
+      'o': 'http://opera.com',
+      'p': undefined,
+      'a': 'http://acfun.tv',
+      's': 'http://sohu.com',
+      'z': 'http://zhihu.com',
+      'm': 'http://mcdonalds.com.cn'
+    }
+
+    var index = 0
+    while(index < key.length) {
+      var div1 = document.createElement("div")
+      main.appendChild(div1)
+      var index2 = 0
+      var row = key[index]
+      while(index2 < row.length) {
+        var kbd = document.createElement("kbd")
+        kbd.textContent = row[index2]
+        div1.appendChild(kbd)
+        index2++
+      }
+      index++
+    }
+  </script>
+</body>
+</html>
