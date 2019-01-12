@@ -51,6 +51,13 @@
       }
       index++
     }
+    document.onkeypress = function(event) {
+      key = event['key']
+      website = hash[key]
+      console.log(website)
+      // location.href = website
+      window.open(website, '_blank')
+    }
   </script>
 </body>
 </html>
