@@ -14,98 +14,138 @@
   </main>
   <footer></footer>
   <script>
-    var key = [
-      ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-      ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-      ['z', 'x', 'c', 'v', 'b', 'n', 'm']
-    ]
 
-    var hash = {
-      'q': 'qq.com',
-      'w': 'weibo.com',
-      'e': 'ele.me',
-      'r': 'renren.com',
-      't': 't.tt',
-      'y': 'youtube.com',
-      'u': 'uc.com',
-      'i': 'iqiyi.com',
-      'o': 'opera.com',
-      'p': 'paypal.com',
-      'a': 'amazon.com',
-      's': 'sohu.com',
-      'd': 'dribbble.com',
-      'f': 'facebook.com',
-      'g': 'google.com',
-      'h': 'hao123.com',
-      'j': "jd.com",
-      'k': undefined,
-      'l': 'lol.qq.com',
-      'z': 'zhihu.com',
-      'x': undefined,
-      'c': undefined,
-      'v': undefined,
-      'b': undefined,
-      'n': undefined,
-      'm': 'mcdonalds.com.cn'
-    }
+    var iniData = init()
+    var keys = iniData.keys
+    var hash = iniData.hash
 
-    var hashInLocalStorage = JSON.parse(localStorage.getItem('storedHash')) || ''
+    var hashInLocalStorage = getItemFromLocalStorage('storedHash')
     if(hashInLocalStorage) {
       hash = hashInLocalStorage
+    }
+
+    generateKayboard(keys, hash)
+
+    listenToUser(hash)
+
+    function getItemFromLocalStorage(key) {
+      JSON.parse(localStorage.getItem(key)) || ''
     }
 
     function fullImgUrl(websitePath) {
       return "http://www." + websitePath + "/favicon.ico"
     }
 
-    var index = 0
-    while(index < key.length) {
-      var div1 = document.createElement("div")
-      main.appendChild(div1)
-      var index2 = 0
-      var row = key[index]
-      while(index2 < row.length) {
-        var kbd = document.createElement("kbd")
-        span = document.createElement("span")
-        span.textContent = row[index2]
-        kbd.appendChild(span)
-        kbd.className = 'key'
-        var button = document.createElement("button")
-        button.textContent = '编辑'
-        button.id = row[index2]
-        var img = document.createElement("img")
-        var imgUrl = fullImgUrl(hash[row[index2]])
-        if (hash[row[index2]]) {
-          img.src = imgUrl
-          kbd.appendChild(img)
-          img.onerror = function() {
-            console.log("下载失败了")
-          }
-        }
-        button.onclick = function(event) {
-          button1 = event.target
-          key = button1.id
-          img1 = button1.previousSibling
-          x = prompt('我给一个网址')
-          img1.src = fullImgUrl(x)
-          hash[key] = x
-          localStorage.setItem('storedHash', JSON.stringify(hash))
-        }
-        kbd.appendChild(button)
-        div1.appendChild(kbd)
-        index2++
+    function createElement(tagName, attributes = {}) {
+      var element = document.createElement(tagName)
+      for (const key in attributes) {
+        element[key] = attributes[key]
       }
-      index++
+      return element
     }
-    document.onkeypress = function(event) {
-      key = event['key']
-      website = hash[key]
-      if(website) {
-        console.log(website)
-        // location.href = website
-        window.open('http://www.' + website, '_blank')
-      } else {
-        alert("网址不存在，请编辑")
+
+    function createButton(id) {
+      var button = createElement("button", { textContent: "edit", id: id })
+      button.onclick = function(event) {
+        button1 = event.target
+        key = button1.id
+        img1 = button1.previousSibling
+        x = prompt('我给一个网址')
+        img1.src = fullImgUrl(x)
+        img1.onerror = function(event) {
+          console.log("下载失败了")
+        }
+        hash[key] = x
+        localStorage.setItem('storedHash', JSON.stringify(hash))
+      }
+
+      return button
+    }
+
+    function createImg(website, kbd) {
+      var img = createElement("img")
+      var imgUrl = fullImgUrl(website)
+      if (website) {
+        img.src = imgUrl
+        kbd.appendChild(img)
+        img.onerror = function() {
+          console.log("下载失败了")
+        }
+      }
+      return img
+    }
+
+    function init() {
+      var keys = [
+        ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+        ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+        ['z', 'x', 'c', 'v', 'b', 'n', 'm']
+      ]
+
+      var hash = {
+        'q': 'qq.com',
+        'w': 'weibo.com',
+        'e': 'ele.me',
+        'r': 'renren.com',
+        't': 't.tt',
+        'y': 'youtube.com',
+        'u': 'uc.com',
+        'i': 'iqiyi.com',
+        'o': 'opera.com',
+        'p': 'paypal.com',
+        'a': 'amazon.com',
+        's': 'sohu.com',
+        'd': 'dribbble.com',
+        'f': 'facebook.com',
+        'g': 'google.com',
+        'h': 'hao123.com',
+        'j': "jd.com",
+        'k': undefined,
+        'l': 'lol.qq.com',
+        'z': 'zhihu.com',
+        'x': undefined,
+        'c': undefined,
+        'v': undefined,
+        'b': undefined,
+        'n': undefined,
+        'm': 'mcdonalds.com.cn'
+      }
+      return {
+        keys: keys,
+        hash: hash
+      }
+    }
+
+    function generateKayboard(keys, hash) {
+      for (let index = 0; index < keys.length; index++) {
+        var div1 = createElement("div")
+        main.appendChild(div1)
+        var row = keys[index]
+
+        for (let index2=0; index2 < row.length; index2++) {
+          var kbd = createElement("kbd", { className: 'key' })
+          var span = createElement("span", { textContent: row[index2] })
+          var button = createButton(row[index2])
+          createImg(hash[row[index2]], kbd)
+
+          kbd.appendChild(span)
+          kbd.appendChild(button)
+          div1.appendChild(kbd)
+        }
+      }
+    }
+
+    function listenToUser(hash) {
+      document.onkeypress = function(event) {
+        key = event['key']
+        website = hash[key]
+        if(website) {
+          console.log(website)
+          // location.href = website
+          window.open('http://www.' + website, '_blank')
+        } else {
+          alert("网址不存在，请编辑")
+        }
       }
     }
   </script>
