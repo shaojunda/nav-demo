@@ -59,7 +59,10 @@
         button.id = row[index2]
         var img = document.createElement("img")
         var imgUrl = "https://www." + hash[row[index2]] + "/favicon.ico"
-        createImg(imgUrl, img, kbd)
+        if (hash[row[index2]]) {
+          img.src = imgUrl
+          kbd.appendChild(img)
+        }
         button.onclick = function(event) {
           key = event.target.id
           x = prompt('我给一个网址')
@@ -78,23 +81,6 @@
       console.log(website)
       // location.href = website
       window.open('https://' + website, '_blank')
-    }
-
-    function createImg(imgUrl, img, kbd) {
-      fetch('https://www.qq.com/favicon.ico', { mode: 'no-cors'})
-        .then(function(response) {
-          if (!response.ok) {
-            return false;
-          }
-          return response.blob();
-        })
-        .then(function(response) {
-          if(response != false) {
-            var objectURL = window.URL.createObjectURL(response)
-            img.src = objectURL
-            kbd.appendChild(img)
-          }
-        })
     }
   </script>
 </body>
