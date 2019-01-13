@@ -21,20 +21,20 @@
     ]
 
     var hash = {
-      'q': 'http://qq.com',
-      'w': 'http://weibo.com',
-      'e': 'http://ele.me',
-      'r': 'http://renren.com',
-      't': 'http://tianya.com',
-      'y': 'http://youtube.com',
-      'u': 'http://uc.com',
-      'i': 'http://iqiyi.com',
-      'o': 'http://opera.com',
+      'q': 'qq.com',
+      'w': 'weibo.com',
+      'e': 'ele.me',
+      'r': 'renren.com',
+      't': 'tianya.com',
+      'y': 'youtube.com',
+      'u': 'uc.com',
+      'i': 'iqiyi.com',
+      'o': 'opera.com',
       'p': undefined,
-      'a': 'http://acfun.tv',
-      's': 'http://sohu.com',
-      'z': 'http://zhihu.com',
-      'm': 'http://mcdonalds.com.cn'
+      'a': 'acfun.tv',
+      's': 'sohu.com',
+      'z': 'zhihu.com',
+      'm': 'mcdonalds.com.cn'
     }
 
     var hashInLocalStorage = JSON.parse(localStorage.getItem('storedHash')) || ''
@@ -72,7 +72,7 @@
       website = hash[key]
       console.log(website)
       // location.href = website
-      window.open(website, '_blank')
+      window.open('http://' + website, '_blank')
     }
   </script>
 </body>
