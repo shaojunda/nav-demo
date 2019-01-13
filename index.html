@@ -25,15 +25,27 @@
       'w': 'weibo.com',
       'e': 'ele.me',
       'r': 'renren.com',
-      't': 'tianya.com',
+      't': 't.title',
       'y': 'youtube.com',
       'u': 'uc.com',
       'i': 'iqiyi.com',
       'o': 'opera.com',
-      'p': undefined,
-      'a': 'acfun.tv',
+      'p': 'paypal.com',
+      'a': 'amazon.com',
       's': 'sohu.com',
+      'd': 'dribbble.com',
+      'f': 'facebook.com',
+      'g': 'google.com',
+      'h': 'hao123.com',
+      'j': "jd.com",
+      'k': undefined,
+      'l': 'lol.qq.com',
       'z': 'zhihu.com',
+      'x': undefined,
+      'c': undefined,
+      'v': undefined,
+      'b': undefined,
+      'n': undefined,
       'm': 'mcdonalds.com.cn'
     }
 
@@ -58,7 +70,7 @@
         button.textContent = '编辑'
         button.id = row[index2]
         var img = document.createElement("img")
-        var imgUrl = "https://www." + hash[row[index2]] + "/favicon.ico"
+        var imgUrl = "http://www." + hash[row[index2]] + "/favicon.ico"
         if (hash[row[index2]]) {
           img.src = imgUrl
           kbd.appendChild(img)
@@ -80,7 +92,7 @@
       website = hash[key]
       console.log(website)
       // location.href = website
-      window.open('https://' + website, '_blank')
+      window.open('http://www.' + website, '_blank')
     }
   </script>
 </body>
