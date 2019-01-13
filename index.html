@@ -50,11 +50,16 @@
       var row = key[index]
       while(index2 < row.length) {
         var kbd = document.createElement("kbd")
-        kbd.textContent = row[index2]
+        span = document.createElement("span")
+        span.textContent = row[index2]
+        kbd.appendChild(span)
         kbd.className = 'key'
         var button = document.createElement("button")
         button.textContent = '编辑'
         button.id = row[index2]
+        var img = document.createElement("img")
+        var imgUrl = "https://www." + hash[row[index2]] + "/favicon.ico"
+        createImg(imgUrl, img, kbd)
         button.onclick = function(event) {
           key = event.target.id
           x = prompt('我给一个网址')
@@ -72,7 +77,25 @@
       website = hash[key]
       console.log(website)
       // location.href = website
-      window.open('http://' + website, '_blank')
+      window.open('https://' + website, '_blank')
+    }
+
+    function createImg(imgUrl, img, kbd) {
+      fetch('https://www.qq.com/favicon.ico', { mode: 'no-cors'})
+        .then(function(response) {
+          debugger
+          if (!response.ok) {
+            return false;
+          }
+          return response.blob();
+        })
+        .then(function(response) {
+          if(response != false) {
+            var objectURL = window.URL.createObjectURL(response)
+            img.src = objectURL
+            kbd.appendChild(img)
+          }
+        })
     }
   </script>
 </body>
