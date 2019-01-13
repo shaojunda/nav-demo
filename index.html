@@ -83,7 +83,6 @@
     function createImg(imgUrl, img, kbd) {
       fetch('https://www.qq.com/favicon.ico', { mode: 'no-cors'})
         .then(function(response) {
-          debugger
           if (!response.ok) {
             return false;
           }
