@@ -51,6 +51,7 @@
       while(index2 < row.length) {
         var kbd = document.createElement("kbd")
         kbd.textContent = row[index2]
+        kbd.className = 'key'
         var button = document.createElement("button")
         button.textContent = '编辑'
         button.id = row[index2]
