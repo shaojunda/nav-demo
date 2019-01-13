@@ -25,7 +25,7 @@
       'w': 'weibo.com',
       'e': 'ele.me',
       'r': 'renren.com',
-      't': 't.title',
+      't': 't.tt',
       'y': 'youtube.com',
       'u': 'uc.com',
       'i': 'iqiyi.com',
@@ -54,6 +54,10 @@
       hash = hashInLocalStorage
     }
 
+    function fullImgUrl(websitePath) {
+      return "http://www." + websitePath + "/favicon.ico"
+    }
+
     var index = 0
     while(index < key.length) {
       var div1 = document.createElement("div")
@@ -70,14 +74,20 @@
         button.textContent = '编辑'
         button.id = row[index2]
         var img = document.createElement("img")
-        var imgUrl = "http://www." + hash[row[index2]] + "/favicon.ico"
+        var imgUrl = fullImgUrl(hash[row[index2]])
         if (hash[row[index2]]) {
           img.src = imgUrl
           kbd.appendChild(img)
+          img.onerror = function() {
+            console.log("下载失败了")
+          }
         }
         button.onclick = function(event) {
-          key = event.target.id
+          button1 = event.target
+          key = button1.id
+          img1 = button1.previousSibling
           x = prompt('我给一个网址')
+          img1.src = fullImgUrl(x)
           hash[key] = x
           localStorage.setItem('storedHash', JSON.stringify(hash))
         }
@@ -90,9 +100,13 @@
     document.onkeypress = function(event) {
       key = event['key']
       website = hash[key]
-      console.log(website)
-      // location.href = website
-      window.open('http://www.' + website, '_blank')
+      if(website) {
+        console.log(website)
+        // location.href = website
+        window.open('http://www.' + website, '_blank')
+      } else {
+        alert("网址不存在，请编辑")
+      }
     }
   </script>
 </body>
