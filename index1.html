@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>网址导航</title>
+  <link rel="stylesheet" href="./style1.css">
+</head>
+<body>
+  <main id="main"></main>
+</body>
+
+<script>
+  var key = [
+    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+    ['z', 'x', 'c', 'v', 'b', 'n', 'm']
+  ]
+
+  var hash = {
+    'q': 'qq.com',
+    'w': 'weibo.com',
+    'e': 'ele.me',
+    'r': 'renren.com',
+    't': 'tianya.com',
+    'y': 'youtube.com',
+    'u': 'uc.com',
+    'i': 'iqiyi.com',
+    'o': 'opera.com',
+    'p': undefined,
+    'a': 'acfun.tv',
+    's': 'sohu.com',
+    'z': 'zhihu.com',
+    'm': 'mcdonalds.com.cn'
+  }
+
+  var storedHash = JSON.parse(localStorage.getItem("websiteHash")) || ""
+  if(storedHash) {
+    hash = storedHash
+  }
+
+  var index = 0
+  while(index < key.length) {
+    row = key[index]
+    var index1 = 0
+    var div1 = document.createElement("div")
+    main.appendChild(div1)
+    while(index1 < row.length) {
+      var kbd = document.createElement("kbd")
+      kbd.textContent = row[index1]
+      var button = document.createElement("button")
+      button.textContent = "编辑"
+      button.id = row[index1]
+      button.onclick = function(event) {
+        var website = prompt("请输入一个网址")
+        var key = event.target.id
+        hash[key] = website
+        localStorage.setItem("websiteHash", JSON.stringify(hash))
+      }
+      kbd.appendChild(button)
+      div1.appendChild(kbd)
+      index1++
+    }
+    index++
+  }
+
+  document.onkeypress = function(event) {
+    var key = event.key
+    window.open('http://' + hash[key], '_blank')
+  }
+</script>
+</html>

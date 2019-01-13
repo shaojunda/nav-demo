@@ -1,0 +1,23 @@
+main > div > kbd {
+  width: 4em;
+  height: 4em;
+  border: 1px solid red;
+  display: inline-block;
+  position: relative;
+}
+
+main > div {
+  text-align: center;
+}
+
+kbd > button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+
+kbd:hover > button {
+  display: inline-block;
+}
+
